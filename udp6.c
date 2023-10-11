@@ -75,7 +75,7 @@ static int mc_bind(int fd, int index)
 
 static int mc_join(int fd, int index, const struct sockaddr_in6 *sa)
 {
-	int err, off = 0;
+	int err, on = 1;
 	struct ipv6_mreq req;
 
 	memset(&req, 0, sizeof(req));
@@ -86,7 +86,7 @@ static int mc_join(int fd, int index, const struct sockaddr_in6 *sa)
 		pr_err("setsockopt IPV6_ADD_MEMBERSHIP failed: %m");
 		return -1;
 	}
-	err = setsockopt(fd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &off, sizeof(off));
+	err = setsockopt(fd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, &on, sizeof(on));
 	if (err) {
 		pr_err("setsockopt IPV6_MULTICAST_LOOP failed: %m");
 		return -1;

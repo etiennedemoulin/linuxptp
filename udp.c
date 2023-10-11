@@ -64,7 +64,7 @@ static int mcast_bind(int fd, int index)
 
 static int mcast_join(int fd, int index, const struct sockaddr_in *sa)
 {
-	int err, off = 0;
+	int err, on = 1;
 	struct ip_mreqn req;
 
 	memset(&req, 0, sizeof(req));
@@ -75,7 +75,7 @@ static int mcast_join(int fd, int index, const struct sockaddr_in *sa)
 		pr_err("setsockopt IP_ADD_MEMBERSHIP failed: %m");
 		return -1;
 	}
-	err = setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, &off, sizeof(off));
+	err = setsockopt(fd, IPPROTO_IP, IP_MULTICAST_LOOP, &on, sizeof(on));
 	if (err) {
 		pr_err("setsockopt IP_MULTICAST_LOOP failed: %m");
 		return -1;
